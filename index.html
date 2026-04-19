@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CowsJazz</title>
+<style>
+  * { box-sizing: border-box; }
+
+  /* ── Keyframe animations ── */
+  @keyframes floatCloud {
+    0%   { transform: translateX(0px); }
+    50%  { transform: translateX(30px); }
+    100% { transform: translateX(0px); }
+  }
+  @keyframes floatCloud2 {
+    0%   { transform: translateX(0px); }
+    50%  { transform: translateX(-24px); }
+    100% { transform: translateX(0px); }
+  }
+  @keyframes bobCow {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-18px); }
+    100% { transform: translateY(0px); }
+  }
+  @keyframes heroTitle {
+    0%   { opacity: 0; transform: translateY(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0px) scale(1); }
+  }
+  @keyframes heroSub {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0px); }
+  }
+  @keyframes fadeInUp {
+    0%   { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0px 16px 32px rgba(0,0,0,0.10), 0px 0px 2px rgba(0,0,0,0.05), 0 0 0 0 rgba(163,203,229,0.5); }
+    70%  { box-shadow: 0px 16px 32px rgba(0,0,0,0.10), 0px 0px 2px rgba(0,0,0,0.05), 0 0 0 14px rgba(163,203,229,0); }
+    100% { box-shadow: 0px 16px 32px rgba(0,0,0,0.10), 0px 0px 2px rgba(0,0,0,0.05), 0 0 0 0 rgba(163,203,229,0); }
+  }
+  @keyframes navbarFadeIn {
+    0%   { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes grassWave {
+    0%   { transform: scaleX(1); }
+    50%  { transform: scaleX(1.02); }
+    100% { transform: scaleX(1); }
+  }
+
+  /* ── Cloud drift classes ── */
+  .cloud-drift-1 { animation: floatCloud 9s ease-in-out infinite; }
+  .cloud-drift-2 { animation: floatCloud2 12s ease-in-out infinite; }
+  .cloud-drift-3 { animation: floatCloud 7s ease-in-out infinite 2s; }
+  .cloud-drift-4 { animation: floatCloud2 15s ease-in-out infinite 1s; }
+  .cloud-drift-5 { animation: floatCloud 11s ease-in-out infinite 3s; }
+  .cloud-drift-6 { animation: floatCloud2 8s ease-in-out infinite 0.5s; }
+  .cloud-drift-7 { animation: floatCloud 13s ease-in-out infinite 4s; }
+  .cloud-drift-8 { animation: floatCloud2 10s ease-in-out infinite 1.5s; }
+  .cloud-drift-9 { animation: floatCloud 6s ease-in-out infinite 2.5s; }
+
+  /* ── Hero elements ── */
+  .hero-title {
+    animation: heroTitle 1s cubic-bezier(0.22,1,0.36,1) forwards;
+    opacity: 0;
+  }
+  .hero-sub {
+    animation: heroSub 0.9s ease forwards 0.4s;
+    opacity: 0;
+  }
+  .hero-card {
+    animation: heroSub 1s ease forwards 0.2s;
+    opacity: 0;
+  }
+
+  /* ── Navbar ── */
+  .navbar {
+    animation: navbarFadeIn 0.7s ease forwards;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .navbar-logo {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+  }
+  .navbar-logo:hover { transform: scale(1.05); opacity: 0.85; }
+
+  .nav-appstore {
+    transition: color 0.25s ease, transform 0.25s ease;
+    cursor: pointer;
+  }
+  .nav-appstore:hover { transform: scale(1.07); color: #5b9bc7 !important; }
+
+  /* ── Download button ── */
+  .btn-download-bg {
+    animation: pulse 2.4s ease-in-out infinite 1.2s;
+    transition: transform 0.25s ease, background 0.25s ease;
+    cursor: pointer;
+  }
+  .btn-download-bg:hover {
+    transform: scale(1.10);
+    background: rgba(248,248,255,0.40) !important;
+    animation: none;
+  }
+  .btn-download-text {
+    transition: letter-spacing 0.25s ease;
+    cursor: pointer;
+    pointer-events: none;
+  }
+  .btn-download-bg:hover + .btn-download-wrapper .btn-download-text,
+  .btn-download-text:hover {
+    letter-spacing: 1px;
+  }
+
+  /* ── Feature cards ── */
+  .feature-card {
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.35s ease,
+                background 0.35s ease;
+    cursor: default;
+  }
+  .feature-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0px 28px 48px rgba(0,0,0,0.15), 0px 0px 4px rgba(0,0,0,0.08) !important;
+    background: rgba(248,248,255,0.38) !important;
+  }
+
+  /* ── Cow images ── */
+  .cow-bob { animation: bobCow 3.5s ease-in-out infinite; }
+  .cow-bob-2 { animation: bobCow 4.2s ease-in-out infinite 0.8s; }
+  .cow-bob-3 { animation: bobCow 2.8s ease-in-out infinite 0.3s; }
+
+  /* ── Support card ── */
+  .support-card {
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .support-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 28px 48px rgba(0,0,0,0.13), 0px 0px 4px rgba(0,0,0,0.07) !important;
+    background: rgba(248,248,255,0.35) !important;
+  }
+
+  /* ── Chat support row ── */
+  .chat-row {
+    transition: background 0.25s ease, transform 0.25s ease;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .chat-row:hover {
+    background: rgba(163,203,229,0.18);
+    transform: translateX(6px);
+  }
+  .chat-arrow {
+    transition: transform 0.25s ease;
+    display: inline-block;
+  }
+  .chat-row:hover .chat-arrow { transform: translateX(8px); }
+
+  /* ── Contact rows ── */
+  .contact-row {
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    border-radius: 14px;
+    cursor: pointer;
+  }
+  .contact-row:hover { transform: translateX(6px); opacity: 0.75; }
+
+  /* ── FAQ link ── */
+  .faq-link {
+    transition: color 0.2s ease, letter-spacing 0.2s ease;
+    cursor: pointer;
+  }
+  .faq-link:hover { color: #5b9bc7 !important; letter-spacing: 0.5px; }
+
+  /* ── Scroll-reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(45px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Section headings ── */
+  .section-heading {
+    transition: letter-spacing 0.4s ease;
+  }
+  .section-heading:hover { letter-spacing: 2px; }
+
+  /* ── Grass ── */
+  .grass-img { animation: grassWave 8s ease-in-out infinite; transform-origin: bottom center; }
+</style>
+</head>
+<body style="margin:0; padding:0;">
+<div style="width: 1920px; height: 3949px; position: relative; background: linear-gradient(180deg, #A3CBE5 0%, #EBEFF2 100%); overflow: hidden">
+
+  <!-- ═══ NAVBAR ═══ -->
+  <div class="navbar" style="width: 1920px; height: 80px; left: 0px; top: 0px; position: absolute; background: rgba(248, 248, 255, 0.20); box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 16px 32px rgba(0, 0, 0, 0.10); border: 0.50px white solid; backdrop-filter: blur(6.50px); z-index: 100;"></div>
+  <div class="navbar-logo" style="width: 539px; height: 80px; left: 302px; top: 0px; position: absolute; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 48px; font-family: Strelka; font-weight: 900; word-wrap: break-word; z-index: 101;">CowsJazz</div>
+  <div class="nav-appstore" style="width: 317px; height: 80px; left: 1301px; top: 0px; position: absolute; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 36px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; z-index: 101;">AppStore</div>
+
+  <!-- ═══ CLOUDS ═══ -->
+  <img class="cloud-drift-1" style="width: 622px; height: 339px; left: -274px; top: 80px; position: absolute; filter: blur(3px)" src="image/облако 2.png" />
+  <img class="cloud-drift-2" style="width: 622px; height: 339px; left: 516px; top: -91px; position: absolute; filter: blur(3px)" src="image/облако.png" />
+  <img class="cloud-drift-3" style="width: 622px; height: 339px; left: 1533px; top: 240px; position: absolute; filter: blur(3px)" src="image/облако.png" />
+  <img class="cloud-drift-4" style="width: 622px; height: 339px; left: -12px; top: 804px; position: absolute; filter: blur(3px)" src="image/облако.png" />
+  <img class="cloud-drift-5" style="width: 622px; height: 339px; left: 307px; top: 1329px; position: absolute; filter: blur(3px)" src="image/облако 2.png" />
+  <img class="cloud-drift-6" style="width: 322px; height: 322px; left: 246px; top: 1411px; position: absolute" src="image/облако 2.png" />
+  <img class="cloud-drift-7" style="width: 450px; height: 322px; left: 391px; top: 1448px; position: absolute" src="image/облако.png" />
+  <img class="cloud-drift-8" style="width: 450px; height: 322px; left: 1144px; top: 1310px; position: absolute" src="image/облако.png" />
+  <img class="cloud-drift-9" style="width: 400px; height: 400px; left: 1126px; top: 1431px; position: absolute; filter: blur(3px)" src="image/облако 2.png" />
+  <img class="cloud-drift-1" style="width: 622px; height: 339px; left: 1466px; top: 1770px; position: absolute; filter: blur(3px)" src="image/облако.png" />
+  <img class="cloud-drift-3" style="width: 622px; height: 339px; left: -252px; top: 2277px; position: absolute; filter: blur(3px)" src="image/облако.png" />
+  <img class="cloud-drift-2" style="width: 622px; height: 339px; left: 1484px; top: 2513px; position: absolute; filter: blur(3px)" src="image/облако.png" />
+  <img class="cloud-drift-4" style="width: 622px; height: 339px; left: 571px; top: 2893px; position: absolute; filter: blur(3px)" src="image/облако.png" />
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero-card" style="width: 1094px; height: 381px; left: 413px; top: 344px; position: absolute; background: rgba(248, 248, 255, 0.20); box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 0px 2px rgba(0, 0, 0, 0.05); border-radius: 40px; backdrop-filter: blur(3px);"></div>
+  <div class="hero-title" style="left: 461px; top: 360px; position: absolute; text-align: center; color: white; font-size: 140px; font-family: Strelka; font-weight: 900; word-wrap: break-word; text-shadow: 20px 20px 12px rgba(116, 174, 210, 0.70)">CowsJazz</div>
+  <div class="hero-sub" style="left: 753px; top: 536px; position: absolute; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 36px; font-family: SF Pro; font-weight: 400; word-wrap: break-word">Коровки уже ждут тебя !!!</div>
+
+  <!-- Download button (layered: bg + text wrapper) -->
+  <div class="btn-download-bg" id="downloadBtn" style="width: 187px; height: 54px; left: 866px; top: 615px; position: absolute; background: rgba(248, 248, 255, 0.20); box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 0px 2px rgba(0, 0, 0, 0.05); border-radius: 40px; backdrop-filter: blur(3px); z-index: 10;"></div>
+  <div class="btn-download-wrapper" style="width: 160px; height: 29px; left: 890px; top: 623px; position: absolute; z-index: 11; pointer-events: none;">
+    <div class="btn-download-text" style="width: 160px; left: 0px; top: 0px; position: absolute; color: black; font-size: 32px; font-family: Lack; font-weight: 400; word-wrap: break-word">Скачать</div>
+  </div>
+
+  <!-- ═══ WHAT IS IT ═══ -->
+  <div style="left: 776px; top: 805px; position: absolute; text-align: center; color: black; font-size: 50px; font-family: Cygre; font-weight: 700; word-wrap: break-word">Что это такое?</div>
+  <div class="reveal" style="width: 1289px; left: 315px; top: 935px; position: absolute; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 40px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; transition-delay: 0.15s;">CowsJazz - это твоё личное цифровое пастбище для глубокого расслабления и восстановления<br/>Здесь нет сложных трекеров и давления «будь продуктивнее». Только мягкий атмосферный джаз, красивые холмы, день и ночь, которые ты выбираешь сам, и милые коровы, которые постепенно становятся частью твоего пространства.<br/>Приходи, включай музыку, собирай своё стадо и просто выдыхай.</div>
+
+  <!-- ═══ BIG TITLE + COW (middle section) ═══ -->
+  <div class="reveal" style="width: 1230px; left: 345px; top: 1440px; position: absolute; text-align: center; color: white; font-size: 160px; font-family: Strelka; font-weight: 900; word-wrap: break-word; text-shadow: 20px 20px 12px rgba(116, 174, 210, 0.70)">CowsJazz</div>
+  <img  style="width: 300px; height: 312px; left: 490px; top: 1241px; position: absolute" src="image/коровка.png" />
+
+  <!-- ═══ WHY COWSJAZZ ═══ -->
+  <div class="section-heading reveal" style="left: 723px; top: 1834px; position: absolute; text-align: center; color: black; font-size: 50px; font-family: Cygre; font-weight: 700; word-wrap: break-word">Почему CowsJazz?</div>
+
+  <!-- Feature card 1: Профиль -->
+  <div class="feature-card reveal" style="width: 347.63px; height: 390px; left: 376px; top: 1980px; position: absolute; background: rgba(248, 248, 255, 0.20); box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 0px 2px rgba(0, 0, 0, 0.05); border-radius: 40px; backdrop-filter: blur(6.50px); transition-delay: 0.05s;"></div>
+  <img style="width: 126.08px; height: 121.36px; left: 487.39px; top: 2120.40px; position: absolute; pointer-events: none;" src="image/профиль.png" />
+  <img style="width: 20px; height: 20px; left: 525px; top: 2127.40px; position: absolute; pointer-events: none;" src="image/профиль2.png" />
+  <img style="width: 20px; height: 20px; left: 555.39px; top: 2127.40px; position: absolute; pointer-events: none;" src="image/профиль3.png" />
+  <div style="left: 468.67px; top: 1998.85px; position: absolute; color: black; font-size: 40px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; pointer-events: none;">Профиль</div>
+  <div style="left: 471.34px; top: 2279.74px; position: absolute; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 20px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; pointer-events: none;">Можно смотреть <br/>свою статистику</div>
+
+  <!-- Feature card 2: Коровки -->
+  <div class="feature-card reveal" style="width: 347.63px; height: 390px; left: 786.64px; top: 1980px; position: absolute; background: rgba(248, 248, 255, 0.20); box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 0px 2px rgba(0, 0, 0, 0.05); border-radius: 40px; backdrop-filter: blur(6.50px); transition-delay: 0.15s;"></div>
+  <div style="left: 884.43px; top: 1998.85px; position: absolute; color: black; font-size: 40px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; pointer-events: none;">Коровки</div>
+  <div style="left: 826.43px; top: 2279.74px; position: absolute; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 20px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; pointer-events: none;">За каждую успешную сессию <br/>ты получаешь свою коровку</div>
+  <img  style="width: 300px; height: 250px; left: 840px; top: 2000px; position: absolute; pointer-events: none;" src="image/коровка.png" />
+
+  <!-- Feature card 3: Музыка -->
+  <div class="feature-card reveal" style="width: 347.63px; height: 390px; left: 1197.28px; top: 1980px; position: absolute; background: rgba(248, 248, 255, 0.20); box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 0px 2px rgba(0, 0, 0, 0.05); border-radius: 40px; backdrop-filter: blur(6.50px); transition-delay: 0.25s;"></div>
+  <div style="left: 1305px; top: 1998.85px; position: absolute; color: black; font-size: 40px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; pointer-events: none;">Музыка</div>
+  <div style="width: 244.81px; height: 56.56px; left: 1248.69px; top: 2275.74px; position: absolute; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 20px; font-family: SF Pro; font-weight: 400; word-wrap: break-word; pointer-events: none;">Джаз поможет <br/>тебе сосредоточиться</div>
+  <img style="width: 120px; height: 150px; left: 1310px; top: 2100px; position: absolute; pointer-events: none;" src="image/музыка.png" />
+
+  <!-- ═══ CONTACTS ═══ -->
+  <div class="section-heading reveal" style="left: 712px; top: 2454px; position: absolute; text-align: center; color: black; font-size: 50px; font-family: Cygre; font-weight: 700; word-wrap: break-word">Контактные данные</div>
+
+  <!-- Support card -->
+  <div class="support-card reveal" style="width: 1136px; height: 719px; left: 429px; top: 2584px; position: absolute; background: rgba(248, 248, 255, 0.20); box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 0px 2px rgba(0, 0, 0, 0.05); border-radius: 40px; backdrop-filter: blur(6.50px);"></div>
+
+  <!-- Центр поддержки -->
+  <div style="left: 461px; top: 2616px; position: absolute; color: black; font-size: 32px; font-family: Lack; font-weight: 400; word-wrap: break-word">Центр поддержки</div>
+
+  <!-- FAQ -->
+  <div style="width: 560px; padding-left: 32px; padding-right: 32px; left: 429px; top: 2686px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
+    <div class="faq-link" style="align-self: stretch; height: 30px; color: black; font-size: 24px; font-family: Lack; font-weight: 400; text-decoration: underline; word-wrap: break-word">FAQ</div>
+    <div style="align-self: stretch; color: #807C7C; font-size: 20px; font-family: Lack; font-weight: 400; word-wrap: break-word">Ответы на часто задаваемые вопросы</div>
+  </div>
+
+  <!-- Chat support row -->
+  <div class="chat-row" style="width: 1135px; height: 80px; left: 429px; top: 2812px; position: absolute; justify-content: space-between; align-items: center; display: inline-flex; padding: 0 8px;">
+    <div style="width: 559px; height: 80px; padding-left: 32px; padding-right: 32px; padding-top: 8px; padding-bottom: 8px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
+      <div style="align-self: stretch; height: 30px; color: black; font-size: 24px; font-family: Lack; font-weight: 400; word-wrap: break-word">Чат с тех. поддержкой</div>
+      <div style="width: 528px; color: #807C7C; font-size: 20px; font-family: Lack; font-weight: 400; word-wrap: break-word">Если что-то пошло не по плану, мы всегда рядом</div>
+    </div>
+    <div class="chat-arrow" style="width: 80px; height: 80px; text-align: center; justify-content: center; display: flex; flex-direction: column; color: black; font-size: 36px; font-family: Lack; font-weight: 400; word-wrap: break-word">></div>
+  </div>
+
+  <!-- Contact us -->
+  <div style="width: 527px; height: 30px; left: 461px; top: 2956px; position: absolute; color: black; font-size: 24px; font-family: Lack; font-weight: 400; word-wrap: break-word">Связаться с нами</div>
+  <div style="width: 593px; left: 429px; top: 2994px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
+    <div class="contact-row" style="align-self: stretch; padding-left: 32px; padding-right: 32px; justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex; padding-top: 6px; padding-bottom: 6px;">
+      <img style="width: 45px; height: 45px" src="image/письмо.png" />
+      <div style="width: 464px; color: black; font-size: 20px; font-family: Lack; font-weight: 400; word-wrap: break-word">cowjazz@gmail.com</div>
+    </div>
+    <div class="contact-row" style="align-self: stretch; padding-left: 32px; padding-right: 32px; justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex; padding-top: 6px; padding-bottom: 6px;">
+      <img style="width: 45px; height: 45px" src="image/письмо.png" />
+      <div style="width: 464px; color: black; font-size: 20px; font-family: Lack; font-weight: 400; word-wrap: break-word">cowjazz@gmail.com</div>
+    </div>
+    <div class="contact-row" style="align-self: stretch; padding-left: 32px; padding-right: 32px; justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex; padding-top: 6px; padding-bottom: 6px;">
+      <img style="width: 45px; height: 45px" src="image/телефон.png" />
+      <div style="width: 464px; opacity: 0.80; color: black; font-size: 20px; font-family: Lack; font-weight: 400; word-wrap: break-word">8 800 555 35 55</div>
+    </div>
+  </div>
+
+  <!-- Version -->
+  <div style="width: 1136px; left: 429px; top: 3209px; position: absolute; justify-content: flex-start; align-items: center; gap: 383px; display: inline-flex">
+    <div style="width: 656px; padding-left: 32px; padding-right: 32px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
+      <div style="align-self: stretch; height: 30px; color: black; font-size: 24px; font-family: Lack; font-weight: 400; word-wrap: break-word">Версия</div>
+      <div style="align-self: stretch; color: #807C7C; font-size: 20px; font-family: Lack; font-weight: 400; word-wrap: break-word">Текущая версия веб-приложения</div>
+    </div>
+    <div style="width: 80px; text-align: center; color: black; font-size: 24px; font-family: ITC Avant Garde Gothic Demi; font-weight: 600; word-wrap: break-word">v 1.3.0</div>
+  </div>
+
+  <!-- ═══ BOTTOM (grass + cow) ═══ -->
+  <img class="grass-img" style="width: 1924px; height: 787px; left: -4px; top: 3177px; position: absolute" src="image/трава.png" />
+  <img style="width: 600px; height: 509px; left: 60px; top: 3177px; position: absolute" src="image/коровка.png" />
+</div>
+
+<script>
+  /* ── Scroll-reveal via IntersectionObserver ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  /* ── Download button click ── */
+  document.getElementById('downloadBtn').addEventListener('click', function() {
+    this.style.transform = 'scale(0.93)';
+    setTimeout(() => { this.style.transform = ''; }, 160);
+  });
+
+  /* ── Parallax clouds on mousemove ── */
+  document.addEventListener('mousemove', function(e) {
+    const mx = (e.clientX / window.innerWidth - 0.5) * 18;
+    const my = (e.clientY / window.innerHeight - 0.5) * 8;
+    document.querySelectorAll('.cloud-drift-1, .cloud-drift-3, .cloud-drift-5').forEach(c => {
+      c.style.marginLeft = mx * 0.6 + 'px';
+    });
+    document.querySelectorAll('.cloud-drift-2, .cloud-drift-4, .cloud-drift-6').forEach(c => {
+      c.style.marginLeft = -mx * 0.4 + 'px';
+    });
+  });
+</script>
+</body>
+</html>
